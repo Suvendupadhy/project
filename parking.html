@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>parking vehicle</title>
+</head>
+<body>
+    <script>
+        class parkvehicle{
+            constructor()
+            {
+            this.vehicledata=[]
+            }
+        getdetails(vno,vmodel,phoneno,customer_name,check_in)
+            {
+                var x={
+                    vno,
+                    vmodel,
+                    phoneno,
+                    customer_name,
+                    check_in,
+                    check_out:null
+                }
+                this.vehicledata.push(x)                    
+            }
+            displaydata()
+            { 
+                console.table(this.vehicledata)
+            }
+            searchvehicle(vno)
+            {
+                var data=this.vehicledata.find(n=>n.vno===vno)
+                if(data==undefined)
+                {
+                   console.log(vno+"vehicle not found")
+                   return  false  //to terminate the program
+                }
+                console.table(data)
+            }
+        checkout(vno,checkout)
+        {
+            var data=this.vehicledata.find(n=>n.vno==vno)
+            if(data==undefined)
+            {
+                console.log(vno+"vehicle not found")
+                return false     //to terminate the program
+            }
+            let duration =(new Date(checkout)-new Date(data.check_in))/(1000*60)   //miint
+            let amount=0
+            if(duration<=30)
+            {
+                amount=10
+            }
+            else{
+                let extratime=duration-30
+                amount=10+Math.ceil(extratime/30)*10     //extra money
+                console.log(amount)
+            }
+            console.log("vehicle details")
+            console.log(vno)
+            console.log("amount to pay==>"+amount)
+        }
+
+
+        } 
+        const p1=new parkvehicle()                                                                           //constructor invocation
+        p1.getdetails("OD-07-1670","bike","9439544426","rk padhy",new Date("02 22 2023 10:00:00"))           //method invoaction
+        p1.getdetails("OD-07-1671","car","6371648084","s padhy",new Date("02 22 2023 11:00:00"))             //method invoaction
+        p1.getdetails("OD-07-1672","bus","9078327659","rd padhy",new Date("02 22 2023 12:00:00") )           //method invoaction
+        p1.displaydata()                                                                                    //method invocation
+        p1.searchvehicle("OD-07-1670") 
+        p1.checkout("OD-07-1670",new Date("02 22 2023 16:20:00:00"))
+
+    </script>
+</body>
+</html>
